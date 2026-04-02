@@ -1,59 +1,55 @@
 package com.cal.POCEstudiante.Modelo;
-
 import java.util.Date;
 import lombok.Data;
-import java.time.LocalDateTime;
 
-/**
- *
- * @author Andres
- */
 @Data
 public abstract class Bebida {
 
     public static double ImpuestoBebida = 0.19;
-    private int Codigo;
+
+    private Integer Codigo;
     private String Nombre;
-    private double Volumen;
-    private double PrecioProduccion;
-    private int Stock;
-    private Date FechaVencimiento; // Remplazar por localdatetime
+    private Double Volumen;
+    private Double PrecioProduccion;
+    private Integer Stock;
+    private Date FechaVencimiento;
     private String Estado;
 
-    //Constructor
-    public Bebida(int Codigo, String Nombre, double Volumen, double Precio,
-                  int Stock, Date FechaVencimiento, String Estado) throws Exception {
+    // Constructor con parámetros
+    public Bebida(Integer Codigo, String Nombre, Double Volumen, Double PrecioProduccion,
+                  Integer Stock, Date FechaVencimiento, String Estado) {
+
         setCodigo(Codigo);
         this.Nombre = Nombre;
         setVolumen(Volumen);
-        this.PrecioProduccion = Precio;
+        this.PrecioProduccion = PrecioProduccion;
         this.Stock = Stock;
         this.FechaVencimiento = FechaVencimiento;
         this.Estado = Estado;
-
     }
 
-    //Metodo Polimorfismo
-    public abstract double calcularValorFinal();
+    // Constructor vacío (OBLIGATORIO para Spring)
+    public Bebida() {
+    }
 
+    // Método abstracto
+    public abstract double calcularValorFinal();
 
     public double getPrecioVenta() {
         return calcularValorFinal();
     }
 
-    //Verificar que el Volumen de la bebida sea mayor o Igual a 200ml
-    public void setVolumen(double Volumen) throws Exception {
-        if (Volumen < 200) {
-            throw new Exception("Bebida muy pequena, no puede ser vendida!");
+    // Validaciones SIN Exception checked
+    public void setVolumen(Double Volumen) {
+        if (Volumen != null && Volumen < 200) {
+            throw new RuntimeException("Bebida muy pequeña, no puede ser vendida!");
         }
-
         this.Volumen = Volumen;
     }
 
-    //Verificar que es un codigo valido
-    public void setCodigo(int Codigo) throws Exception {
-        if (Codigo < 1) {
-            throw new Exception("Código no válido!");
+    public void setCodigo(Integer Codigo) {
+        if (Codigo != null && Codigo < 1) {
+            throw new RuntimeException("Código no válido!");
         }
         this.Codigo = Codigo;
     }
@@ -61,5 +57,4 @@ public abstract class Bebida {
     public String getTipo() {
         return "Bebida";
     }
-
 }

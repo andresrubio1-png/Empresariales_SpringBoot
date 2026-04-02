@@ -1,4 +1,5 @@
 package com.cal.POCEstudiante.controller;
+import com.cal.POCEstudiante.Modelo.Alcoholica;
 import com.cal.POCEstudiante.Modelo.Bebida;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ public class BebidaController {
 
     //Crear Bebida
     @PostMapping
-    public Bebida crear(@RequestBody Bebida bebida) throws Exception {
+    public Bebida crear(@RequestBody Alcoholica bebida) throws Exception {
         return service.addBebidas(bebida);
     }
     // Listar las bebidas
@@ -30,7 +31,7 @@ public class BebidaController {
     }
     //Actualizar Bebida
     @PutMapping("/actualizar/{codigo}")
-    public ResponseEntity<Bebida> actualizar(@PathVariable int codigo, @RequestBody Bebida bebida) {
+    public ResponseEntity<Bebida> actualizar(@PathVariable int codigo, @RequestBody Alcoholica  bebida) {
         try {
                 Bebida actualizada = service.actualizarBebida(
                     codigo,

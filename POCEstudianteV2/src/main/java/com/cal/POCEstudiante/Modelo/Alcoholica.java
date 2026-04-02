@@ -2,42 +2,51 @@ package com.cal.POCEstudiante.Modelo;
 
 import java.util.Date;
 import lombok.Data;
+
 @Data
 public class Alcoholica extends Bebida implements IFormulasAlcohol {
 
     private static double ValorporGrado = 750;
-    private double PorcentajeAlcohol;
+    private Double PorcentajeAlcohol;
     private String TipoLicor;
 
+    // Constructor con parámetros
+    public Alcoholica(Double PorcentajeAlcohol, String TipoLicor, String LoteProduccion, Integer Codigo, String Nombre,
+                      Double Volumen, Double PrecioProduccion, Integer Stock, Date FechaVencimiento, String Estado) {
 
-    public Alcoholica(double PorcentajeAlcohol, String TipoLicor, String LoteProduccion, int Codigo, String Nombre,
-                      double Volumen, double Precio, int Stock,  Date FechaVencimiento, String Estado) throws Exception {
-        super(Codigo, Nombre, Volumen, Precio, Stock, FechaVencimiento, Estado);
+        super(Codigo, Nombre, Volumen, PrecioProduccion, Stock, FechaVencimiento, Estado);
         setPorcentajeAlcohol(PorcentajeAlcohol);
         this.TipoLicor = TipoLicor;
-
     }
 
-    //Convertir el Porcentaje de alcohol
-    public void setPorcentajeAlcohol(double porcentajeAlcohol) throws Exception {
-        if (porcentajeAlcohol <= 0 || porcentajeAlcohol > 100) {
-            throw new Exception("Porcentaje de alcohol inválido");
+
+    public Alcoholica() {
+    }
+
+
+    public void setPorcentajeAlcohol(Double porcentajeAlcohol) {
+        if (porcentajeAlcohol != null) {
+            if (porcentajeAlcohol <= 0 || porcentajeAlcohol > 100) {
+                throw new RuntimeException("Porcentaje de alcohol inválido");
+            }
+            this.PorcentajeAlcohol = porcentajeAlcohol / 100;
         }
-        this.PorcentajeAlcohol = porcentajeAlcohol / 100;
     }
 
     @Override
     public double CalcularImpuestoAlcohol() {
-        double ImpuestoAnadido = 0;
-        ImpuestoAnadido += PorcentajeAlcohol * ValorporGrado;
-        return ImpuestoAnadido;
+        double impuesto = 0;
+        if (PorcentajeAlcohol != null) {
+            impuesto = PorcentajeAlcohol * ValorporGrado;
+        }
+        return impuesto;
     }
 
     @Override
     public double calcularValorFinal() {
-        double ImpuestoAnadido = CalcularImpuestoAlcohol();
-        double precio = getPrecioProduccion();
-        precio += ImpuestoAnadido + (precio * ImpuestoBebida);
+        double impuesto = CalcularImpuestoAlcohol();
+        double precio = getPrecioProduccion() != null ? getPrecioProduccion() : 0;
+        precio += impuesto + (precio * ImpuestoBebida);
         return precio;
     }
 
@@ -45,5 +54,4 @@ public class Alcoholica extends Bebida implements IFormulasAlcohol {
     public String getTipo() {
         return "Alcoholica";
     }
-
 }
