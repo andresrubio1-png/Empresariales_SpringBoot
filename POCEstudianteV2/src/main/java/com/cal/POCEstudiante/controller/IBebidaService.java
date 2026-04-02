@@ -9,7 +9,7 @@ public interface IBebidaService {
     public  List<Bebida> listarBebidas();
     public  List<Alcoholica> listarLicores();
     public Bebida actualizarBebida(int Codigo, String Nombre, double Volumen, double Precio,
-                                   int Stock, double CantidadAzucar, String TipoEnvase, Date FechaVencimiento, String Estado) throws Exception;
-    public  void eliminardelSistema(Bebida b);
+                                   int Stock, Date FechaVencimiento, String Estado) throws Exception;
+    public  Bebida  eliminardelSistema(int Codigo) throws Exception;
     public  double ganancia(Bebida b);
 }

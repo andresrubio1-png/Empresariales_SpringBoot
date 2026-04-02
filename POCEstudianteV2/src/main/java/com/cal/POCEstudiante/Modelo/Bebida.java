@@ -2,6 +2,7 @@ package com.cal.POCEstudiante.Modelo;
 
 import java.util.Date;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -16,21 +17,17 @@ public abstract class Bebida {
     private double Volumen;
     private double PrecioProduccion;
     private int Stock;
-    private double CantidadAzucar;
-    private String TipoEnvase;
     private Date FechaVencimiento; // Remplazar por localdatetime
     private String Estado;
 
     //Constructor
     public Bebida(int Codigo, String Nombre, double Volumen, double Precio,
-                  int Stock, double CantidadAzucar, String TipoEnvase, Date FechaVencimiento, String Estado) throws Exception {
+                  int Stock, Date FechaVencimiento, String Estado) throws Exception {
         setCodigo(Codigo);
         this.Nombre = Nombre;
         setVolumen(Volumen);
         this.PrecioProduccion = Precio;
         this.Stock = Stock;
-        this.CantidadAzucar = CantidadAzucar;
-        this.TipoEnvase = TipoEnvase;
         this.FechaVencimiento = FechaVencimiento;
         this.Estado = Estado;
 
